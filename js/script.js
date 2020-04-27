@@ -24,6 +24,11 @@ let startBtn = document.getElementById("start"),
     dayValue = document.querySelector('.day-value');
 
 let money, time;
+
+expensesBtn.disabled = true;
+optionalExpensesBtn.disabled = true;
+countBtn.disabled = true;
+
 startBtn.addEventListener('click', function() {
     time = prompt("Введите дату в формате YYYY-MM-DD",'');
     money = +prompt('Ваш бюджет на месяц?','');
@@ -37,6 +42,10 @@ startBtn.addEventListener('click', function() {
     yearValue.value = new Date(Date.parse(time)).getFullYear();
     monthValue.value = new Date(Date.parse(time)).getMonth() + 1;
     dayValue.value = new Date(Date.parse(time)).getDate();
+
+    expensesBtn.disabled = false;
+    optionalExpensesBtn.disabled = false;
+    countBtn.disabled = false;
 });
 
 expensesBtn.addEventListener('click', function() {
@@ -52,8 +61,8 @@ expensesBtn.addEventListener('click', function() {
         } else {
             i--;
         }
+        expensesValue.textContent = sum;
     }
-    expensesValue.textContent = sum;
 });
 
 optionalExpensesBtn.addEventListener('click', function() {
@@ -84,8 +93,11 @@ countBtn.addEventListener('click', function() {
 
 incomeItem.addEventListener('input', function() {
     let items = incomeItem.value;
-    appData.income = items.split(', ');
-    incomeValue.textContent = appData.income;
+    console.log(1);
+    if (isNaN(items) || items != '') {
+        appData.income = items.split(',');
+        incomeValue.textContent = appData.income;
+    }
 });
 
 checkSavings.addEventListener('click', function() {
@@ -128,3 +140,4 @@ let appData = {
     timeData: time,
     savings: false
 };
+
